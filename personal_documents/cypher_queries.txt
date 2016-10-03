@@ -1,0 +1,18 @@
+// Create our entities (labels) with their properties:
+
+// Airport
+CREATE(a:Airport{name:"", city:"", size: "", capacity:""})
+CREATE CONSTRAINT ON (a:Airport) ASSERT a.name IS UNIQUE
+CREATE CONSTRAINT ON (a:Airport) ASSERT a.city IS UNIQUE
+
+// Terminal
+CREATE(t:Terminal{code:"", open:""})
+CREATE CONSTRAINT ON (t:Terminal) ASSERT t.code IS UNIQUE
+
+// Flight
+CREATE(f:Flight{code:"", plane:""})
+CREATE CONSTRAINT ON (f:Flight) ASSERT f.code IS UNIQUE
+
+// Gate
+CREATE(g:Gate{number:"",state:""})
+CREATE CONSTRAINT ON (g:Gate) ASSERT g.number IS UNIQUE

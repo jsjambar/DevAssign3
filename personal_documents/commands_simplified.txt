@@ -1,0 +1,30 @@
+//////// CREATE A [NODE]:[LABEL] {PROPERTIES}:
+CREATE (Keanu:Monkey {name:'Keanu Reeves', born:1964})
+
+//////// CREATE A RELATIONSHIP
+MATCH (a:Person { name: 'Keanu Reeves' }), (b:Person { name: 'Andy Bhadai' })
+CREATE (a)-[:ADMIRES]->(b)
+
+//////// ADD A PROPERTY TO AN EXISTING NODE
+MATCH(n:Monkey) set n.FIELDHERE = '' return n
+
+//////// CREATE AN INDEX FOR A LABEL (AKA AUTOINCREMENTED ID)
+CREATE INDEX ON :Monkey(id)
+
+//////// REMOVE AN INDEX FOR A LABEL
+DROP index on :Monkey(id)
+
+//////// CREATE AN UNIQUE CONSTRAINT (NO AUTO INCREMENT, I THINK?)
+CREATE CONSTRAINT ON (a:Monkey) ASSERT a.id IS UNIQUE
+
+///////// FIND A [NODE]{PROPERTIES}[NODE]
+MATCH (result {name: "Keanu Reeves"}) RETURN result
+
+///////// FIND A [NODE]{PROPERTIES}{QUERY}
+MATCH (result:Monkey) WHERE result.released > 1990 AND result.released < 2010 RETURN result.title
+
+////////// DELETE ALL NODES W/ THESE LABELS AND THEIR RELATIONSHIPS
+MATCH (a:Monkey),(b:Human) OPTIONAL MATCH (a)-[r1]-(), (m)-[r2]-() DELETE a,r1,b,r2
+
+////////// REMOVE A SPECIFIC RELATIONSHIP
+match (a:Person)-[k:Knows]-() delete k return a
