@@ -14,21 +14,21 @@ Relationships:
 	- Airports BASED[rent, since] Company 		 [x]
 
 Constraints:
-	- 6 airports
+	- 6 airports								      [x]
 		- 2 must have the name schiphol					      [x]
 		- 1 must have the name venezia marco polo			      [x]
 		- 2 must be located in london					      [x]
 		- 1 must be located in rome					      [x]
 	- airport sizes have to be small, medium or large 			      [x]
 	- 1 airport must be large 						      [x]
-	- every airport needs to have 5 terminals each
+	- every airport needs to have 5 terminals each				      [x]
 		- venezia marco polo needs to have a terminal called ‘B’	      [x]
-	- 5 companies
+	- 5 companies								      [x]
 		- Lufthansa							      [x]
 		- KLM								      [x]
-	- 5 flights
+	- 5 flights								      [x]
 		- one must be scheduled before 15:00				      [x]
-	- 3 gates PER terminal
+	- 3 gates PER terminal							      
 		- value for state has to be boarding or closed			      [x]
 		- there must be a BOARDING gate for terminal B for VENEZIA MARCO POLO [x] 
 
@@ -102,4 +102,108 @@ CREATE (g:Gate{number:"123",state:"Boarding"})
 
 match (t:Terminal{code:"B", open:true}), (g:Gate{number:"123",state:"Boarding"})
 create (t)-[b:BELONGS]->(g)
+
+// Create the remaining values
+
+// Remaining airports
+create (a:Airport{name:"Vliegveldske", city:"Amsterdam", size:"Large", capacity:300})
+create (a:Airport{name:"Vliegweg", city:"Amsterdam", size:"Small", capacity:50})
+
+// Remaining companies
+CREATE(c:Company{name:"Rabbit", plane_number:7, asset:"Asset"})
+CREATE(c:Company{name:"AndyINC", plane_number:100, asset:"Asset"})
+CREATE(c:Company{name:"CX", plane_number:40, asset:"Asset"})
+
+// Remaining flights
+Create (f:Flight{code:"58", plane:"Parkiet"})
+Create (f:Flight{code:"27", plane:"Vliegtuig"})
+
+// All missing terminals per airport
+Create (t:Terminal{code:"50", open:false})
+match (a:Airport{name:"Venezia Marco Polo"}), (t:Terminal{code:"50", open:false})
+create (a)-[i:INCLUDES]->(t)
+Create (t:Terminal{code:"51", open:false})
+match (a:Airport{name:"Venezia Marco Polo"}), (t:Terminal{code:"51", open:false})
+create (a)-[i:INCLUDES]->(t)
+Create (t:Terminal{code:"52”, open:false})
+match (a:Airport{name:"Venezia Marco Polo"}), (t:Terminal{code:"52", open:false})
+create (a)-[i:INCLUDES]->(t)
+Create (t:Terminal{code:"53”, open:false})
+match (a:Airport{name:"Venezia Marco Polo"}), (t:Terminal{code:"53", open:false})
+create (a)-[i:INCLUDES]->(t)
+Create (t:Terminal{code:"60”, open:false})
+match (a:Airport{name:"Vliegweg"}), (t:Terminal{code:”60”, open:false})
+create (a)-[i:INCLUDES]->(t)
+Create (t:Terminal{code:"61”, open:false})
+match (a:Airport{name:"Vliegweg"}), (t:Terminal{code:"61”, open:false})
+create (a)-[i:INCLUDES]->(t)
+Create (t:Terminal{code:"62”, open:false})
+match (a:Airport{name:"Vliegweg"}), (t:Terminal{code:"62”, open:false})
+create (a)-[i:INCLUDES]->(t)
+Create (t:Terminal{code:"63”, open:false})
+match (a:Airport{name:"Vliegweg"}), (t:Terminal{code:"63”, open:false})
+create (a)-[i:INCLUDES]->(t)
+Create (t:Terminal{code:"64”, open:false})
+match (a:Airport{name:"Vliegweg"}), (t:Terminal{code:"64", open:false})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"70", open:true})
+match (a:Airport{name:"Vliegveldske"}), (t:Terminal{code:"70", open:true})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"71”, open:true})
+match (a:Airport{name:"Vliegveldske"}), (t:Terminal{code:"71”, open:true})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"72”, open:true})
+match (a:Airport{name:"Vliegveldske"}), (t:Terminal{code:"72”, open:true})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"73”, open:true})
+match (a:Airport{name:"Vliegveldske"}), (t:Terminal{code:"73”, open:true})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"74”, open:true})
+match (a:Airport{name:"Vliegveldske"}), (t:Terminal{code:"74”, open:true})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"150”, open:true})
+match (a:Airport{name:"Schiphol", city:"London"}), (t:Terminal{code:"150”, open:true})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"151”, open:true})
+match (a:Airport{name:"Schiphol", city:"London"}), (t:Terminal{code:"151”, open:true})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"152”, open:true})
+match (a:Airport{name:"Schiphol", city:"London"}), (t:Terminal{code:"152”, open:true})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"153”, open:true})
+match (a:Airport{name:"Schiphol", city:"London"}), (t:Terminal{code:"153”, open:true})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"154", open:true})
+match (a:Airport{name:"Schiphol", city:"London"}), (t:Terminal{code:"154", open:true})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"160”, open:false})
+match (a:Airport{name:"Schiphol", city:"Rotterdam"}), (t:Terminal{code:"160", open:false})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"161”, open:false})
+match (a:Airport{name:"Schiphol", city:"Rotterdam"}), (t:Terminal{code:"161”, open:false})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"162”, open:false})
+match (a:Airport{name:"Schiphol", city:"Rotterdam"}), (t:Terminal{code:"162”, open:false})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"163”, open:false})
+match (a:Airport{name:"Schiphol", city:"Rotterdam"}), (t:Terminal{code:"163”, open:false})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"164”, open:false})
+match (a:Airport{name:"Schiphol", city:"Rotterdam"}), (t:Terminal{code:"164”, open:false})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"170", open:false})
+match (a:Airport{name:"Vliegveld", city:"London"}), (t:Terminal{code:"170", open:false})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"171”, open:false})
+match (a:Airport{name:"Vliegveld", city:"London"}), (t:Terminal{code:"171”, open:false})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"172”, open:false})
+match (a:Airport{name:"Vliegveld", city:"London"}), (t:Terminal{code:"172”, open:false})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"173”, open:false})
+match (a:Airport{name:"Vliegveld", city:"London"}), (t:Terminal{code:"173”, open:false})
+create (a)-[i:INCLUDES]->(t)
+create (t:Terminal{code:"174”, open:false})
+match (a:Airport{name:"Vliegveld", city:"London"}), (t:Terminal{code:"174”, open:false})
+create (a)-[i:INCLUDES]->(t)
 
