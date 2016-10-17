@@ -8,29 +8,29 @@ Labels:
 
 Relationships:
 	- Airports TRAVELS[from, distance, time] Flights [x]
-	- Airports INCLUDES[] Terminals [x]
-	- Terminals BELONGS[] Gates [x]
-	- Flights SELLS[price] Company [x]
-	- Airports BASED[rent, since] Company
+	- Airports INCLUDES[] Terminals 		 [x]
+	- Terminals BELONGS[] Gates 			 [x]
+	- Flights SELLS[price] Company 			 [x]
+	- Airports BASED[rent, since] Company 		 [x]
 
 Constraints:
 	- 6 airports
-		- 2 must have the name schiphol					[x]
-		- 1 must have the name venezia marco polo			[x]
-		- 2 must be located in london					[x]
-		- 1 must be located in rome					[x]
-	- airport sizes have to be small, medium or large 			[x]
-	- 1 airport must be large 						[x]
+		- 2 must have the name schiphol					      [x]
+		- 1 must have the name venezia marco polo			      [x]
+		- 2 must be located in london					      [x]
+		- 1 must be located in rome					      [x]
+	- airport sizes have to be small, medium or large 			      [x]
+	- 1 airport must be large 						      [x]
 	- every airport needs to have 5 terminals each
-		- venezia marco polo needs to have a terminal called ‘B’
+		- venezia marco polo needs to have a terminal called ‘B’	      [x]
 	- 5 companies
-		- Lufthansa							[x]
-		- KLM								[x]
+		- Lufthansa							      [x]
+		- KLM								      [x]
 	- 5 flights
-		- one must be scheduled before 15:00				[x]
+		- one must be scheduled before 15:00				      [x]
 	- 3 gates PER terminal
-		- value for state has to be boarding or closed			[x]
-		- there must be a BOARDING gate for terminal B for VENEZIA MARCO POLO
+		- value for state has to be boarding or closed			      [x]
+		- there must be a BOARDING gate for terminal B for VENEZIA MARCO POLO [x] 
 
 // END: LIST OF NEEDS
 
@@ -57,7 +57,7 @@ CREATE(g:Gate{number:"20",state:"Closed"})
 //CREATE CONSTRAINT ON (g:Gate) ASSERT g.number IS UNIQUE
 
 // Company
-CREATE(c:Company{name:"Lufthansa", plane_number:20, asset:"Asset"})
+CREATE(c:Company{name:”XD”, plane_number:20, asset:"Asset"})
 
 // Create our relationships
 Create (a:Airport{name:"Schiphol", city:"Rotterdam", size:"Large", capacity:300})
@@ -90,4 +90,16 @@ Create (c:Company{name:"Lufthansa", plane_number:60, asset:"Assetthree"})
 match (a:Airport{name:"Venezia Marco Polo", city:"Rome", size:"Medium", capacity:200}), (c:Company{name:"Lufthansa", plane_number:60, asset:"Assetthree"})
 create (a)-[ba:BASED{rent:400, since:"2015"}]->(c)
 
+Create (a:Airport{name:"Schiphol", city:"London", size:"Small", capacity:100})
+Create (t:Terminal{code:"100", open:false})
+
+create (t:Terminal{code:"B", open:true})
+
+match (a:Airport{name:"Venezia Marco Polo"}), (t:Terminal{code:"B", open:true})
+create (a)-[i:INCLUDES]->(t)
+
+CREATE (g:Gate{number:"123",state:"Boarding"})
+
+match (t:Terminal{code:"B", open:true}), (g:Gate{number:"123",state:"Boarding"})
+create (t)-[b:BELONGS]->(g)
 
