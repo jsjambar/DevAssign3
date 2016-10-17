@@ -1,3 +1,41 @@
+// BEGIN: LIST OF NEEDS
+Labels:
+	- Airports [x]
+	- Flights  [x]
+	- Terminals[x]
+	- Gates    [x]
+
+Relationships:
+	- Airports TRAVELS[from, distance, time] Flights
+	- Airports INCLUDES[] Terminals
+	- Terminals BELONGS[] Gates
+	- Flights SELLS[price] Company
+	- Airports BASED[rent, since] Company
+
+Constraints:
+	- 6 airports
+		- 2 must have the name schiphol
+		- 1 must have the name venezia marco polo
+		- 2 must be located in london
+		- 1 must be located in rome
+	- airport sizes have to be small, medium or large
+	- 1 airport must be large
+	- every airport needs to have 5 terminals each
+		- venezia marco polo needs to have a terminal called ‘B’
+	- 5 companies
+		- Lufthansa
+		- KLM
+	- 5 flights
+		- one must be scheduled before 15:00
+	- 3 gates PER terminal
+		- value for state has to be boarding or closed
+		- there must be a BOARDING gate for terminal B for VENEZIA MARCO POLO
+
+// END: LIST OF NEEDS
+
+	
+
+
 // Create our entities (labels) with their properties:
 
 // Airport
