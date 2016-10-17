@@ -28,12 +28,12 @@ Constraints:
 		- KLM								      [x]
 	- 5 flights								      [x]
 		- one must be scheduled before 15:00				      [x]
-	- 3 gates PER terminal							      
+	- 3 gates PER terminal							      [x]
 		- value for state has to be boarding or closed			      [x]
 		- there must be a BOARDING gate for terminal B for VENEZIA MARCO POLO [x] 
 
 BUGS:
-	remove the relationship T:53->G:13 and add another G for T:53
+	remove the relationship T:53->G:13 and add another G for T:53		      [x]
 
 
 // END: LIST OF NEEDS
@@ -266,6 +266,9 @@ match (g:Gate{number:"18"}), (t:Terminal{code:"62", open:false})
 create (t)-[b:BELONGS]->(g)
 create (g:Gate{number:”19”, state: “Closed”})
 match (g:Gate{number:"19”}), (t:Terminal{code:"62", open:false})
+create (t)-[b:BELONGS]->(g)
+create (g:Gate{number:"20", state: "Closed"})
+match (g:Gate{number:"20"}), (t:Terminal{code:"53", open:false})
 create (t)-[b:BELONGS]->(g)
 
 create (g:Gate{number:”21”, state: “Closed”})
