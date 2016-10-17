@@ -4,31 +4,32 @@ Labels:
 	- Flights  [x]
 	- Terminals[x]
 	- Gates    [x]
+	- Company  [x]
 
 Relationships:
-	- Airports TRAVELS[from, distance, time] Flights
-	- Airports INCLUDES[] Terminals
-	- Terminals BELONGS[] Gates
-	- Flights SELLS[price] Company
+	- Airports TRAVELS[from, distance, time] Flights [x]
+	- Airports INCLUDES[] Terminals [x]
+	- Terminals BELONGS[] Gates [x]
+	- Flights SELLS[price] Company [x]
 	- Airports BASED[rent, since] Company
 
 Constraints:
 	- 6 airports
-		- 2 must have the name schiphol
-		- 1 must have the name venezia marco polo
-		- 2 must be located in london
-		- 1 must be located in rome
-	- airport sizes have to be small, medium or large
-	- 1 airport must be large
+		- 2 must have the name schiphol					[x]
+		- 1 must have the name venezia marco polo			[x]
+		- 2 must be located in london					[x]
+		- 1 must be located in rome					[x]
+	- airport sizes have to be small, medium or large 			[x]
+	- 1 airport must be large 						[x]
 	- every airport needs to have 5 terminals each
 		- venezia marco polo needs to have a terminal called ‘B’
 	- 5 companies
-		- Lufthansa
-		- KLM
+		- Lufthansa							[x]
+		- KLM								[x]
 	- 5 flights
-		- one must be scheduled before 15:00
+		- one must be scheduled before 15:00				[x]
 	- 3 gates PER terminal
-		- value for state has to be boarding or closed
+		- value for state has to be boarding or closed			[x]
 		- there must be a BOARDING gate for terminal B for VENEZIA MARCO POLO
 
 // END: LIST OF NEEDS
@@ -39,18 +40,54 @@ Constraints:
 // Create our entities (labels) with their properties:
 
 // Airport
-CREATE(a:Airport{name:"", city:"", size: "", capacity:""})
-CREATE CONSTRAINT ON (a:Airport) ASSERT a.name IS UNIQUE
-CREATE CONSTRAINT ON (a:Airport) ASSERT a.city IS UNIQUE
+CREATE(a:Airport{name:"Vliegveld", city:"London", size: "Medium", capacity:300})
+//CREATE CONSTRAINT ON (a:Airport) ASSERT a.name IS UNIQUE
+//CREATE CONSTRAINT ON (a:Airport) ASSERT a.city IS UNIQUE
 
 // Terminal
-CREATE(t:Terminal{code:"", open:""})
-CREATE CONSTRAINT ON (t:Terminal) ASSERT t.code IS UNIQUE
+CREATE(t:Terminal{code:"20", open:true})
+//CREATE CONSTRAINT ON (t:Terminal) ASSERT t.code IS UNIQUE
 
 // Flight
-CREATE(f:Flight{code:"", plane:""})
-CREATE CONSTRAINT ON (f:Flight) ASSERT f.code IS UNIQUE
+CREATE(f:Flight{code:"100", plane:"Vliegtuigje"})
+//CREATE CONSTRAINT ON (f:Flight) ASSERT f.code IS UNIQUE
 
 // Gate
-CREATE(g:Gate{number:"",state:""})
-CREATE CONSTRAINT ON (g:Gate) ASSERT g.number IS UNIQUE
+CREATE(g:Gate{number:"20",state:"Closed"})
+//CREATE CONSTRAINT ON (g:Gate) ASSERT g.number IS UNIQUE
+
+// Company
+CREATE(c:Company{name:"Lufthansa", plane_number:20, asset:"Asset"})
+
+// Create our relationships
+Create (a:Airport{name:"Schiphol", city:"Rotterdam", size:"Large", capacity:300})
+Create (f:Flight{code:"1", plane:"Doei"})
+
+match (a:Airport{name:"Schiphol", city:"Rotterdam", size:"Large", capacity:300}), (f:Flight{code:"1", plane:"Doei"})
+create (a)-[t:TRAVELS{from:"Rome", distance:4000, time:"13:20"}]->(f)
+
+Create (a:Airport{name:"Schiphol", city:"London", size:"Small", capacity:100})
+Create (t:Terminal{code:"100", open:false})
+
+match (a:Airport{name:"Schiphol", city:"London", size:"Small", capacity:100}), (t:Terminal{code:"100", open:false})
+create (a)-[i:INCLUDES]->(t)
+
+Create (t:Terminal{code:"10", open:true})
+Create (g:Gate{number:"12",state:"Boarding"})
+
+match (t:Terminal{code:"10", open:true}), (g:Gate{number:"12",state:"Boarding"})
+create (t)-[b:BELONGS]->(g)
+
+Create (f:Flight{code:"3", plane:"Daag"})
+Create (c:Company{name:"KLM", plane_number:25, asset:"Assettwo"})
+
+match (f:Flight{code:"3", plane:"Daag"}), (c:Company{name:"KLM", plane_number:25, asset:"Assettwo"})
+create (f)-[s:sells{price:400}]->(c)
+
+Create (a:Airport{name:"Venezia Marco Polo", city:"Rome", size:"Medium", capacity:200})
+Create (c:Company{name:"Lufthansa", plane_number:60, asset:"Assetthree"})
+
+match (a:Airport{name:"Venezia Marco Polo", city:"Rome", size:"Medium", capacity:200}), (c:Company{name:"Lufthansa", plane_number:60, asset:"Assetthree"})
+create (a)-[ba:BASED{rent:400, since:"2015"}]->(c)
+
+
