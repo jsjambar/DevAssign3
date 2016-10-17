@@ -1,0 +1,22 @@
+1.
+match(a:Airport{size:"Large"}) return a.name, a.capacity
+
+2.
+start a=node(*) WHERE EXISTS(a.capacity) RETURN a.city, sum(a.capacity)
+
+3.
+start a=node(*) WHERE EXISTS(a.capacity) RETURN a.name, a.capacity ORDER BY a.capacity DESC LIMIT 1
+
+4.
+match (a:Airport{name:"Schiphol"})-[i:INCLUDES]->(t:Terminal{open:true}) return a,t
+
+5.
+match (a:Airport{city:"London"})-[i:INCLUDES]->(t:Terminal) return a,t
+
+6.
+match (a:Airport{name:"Venezia Marco Polo"})-[i:INCLUDES]->(t:Terminal{code:"B"})-[b:BELONGS]->(g:Gate{state:"Boarding"}) return g.number, g.state
+
+7.
+
+8.
+
