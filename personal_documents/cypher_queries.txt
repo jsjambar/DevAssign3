@@ -20,5 +20,5 @@ match (a:Airport{name:"Venezia Marco Polo"})-[i:INCLUDES]->(t:Terminal{code:"B"}
 match (f:Flight)<-[t:TRAVELS]-(a:Airport{city:"Rome"})-[b:BASED]->(c:Company) WHERE (c.name in["KLM","Lufthansa"]) return f.code, f.plane
 
 8.
-match (f:Flight)<-[t:TRAVELS]-(a:Airport{city:”Rome”})-[b:BASED]->(c:Company)  return c.name, count(*)
+match (f:Flight)<-[t:TRAVELS]-(a:Airport{city:”Rome”})-[b:BASED]->(c:Company) WHERE t.time < "15:00" return c.name, count(*)
 
