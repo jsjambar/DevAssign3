@@ -487,3 +487,7 @@ create (t)-[b:BELONGS]->(g)
 create (g:Gate{number:”90”, state: “Closed”})
 match (g:Gate{number:"90"}), (t:Terminal{code:"62", open:false})
 create (t)-[b:BELONGS]->(g)
+
+// Connect a company to an airport for the cypher query
+match (a:Airport{name:"Schiphol", city:"Rotterdam"}), (c:Company{name:"KLM"})
+create (a)-[ba:BASED{rent:800, since:2013}]->(c);

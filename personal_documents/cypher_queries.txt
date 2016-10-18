@@ -17,6 +17,8 @@ match (a:Airport{city:"London"})-[i:INCLUDES]->(t:Terminal) return a,t
 match (a:Airport{name:"Venezia Marco Polo"})-[i:INCLUDES]->(t:Terminal{code:"B"})-[b:BELONGS]->(g:Gate{state:"Boarding"}) return g.number, g.state
 
 7.
+match (f:Flight)<-[t:TRAVELS]-(a:Airport{city:"Rome"})-[b:BASED]->(c:Company) WHERE (c.name in["KLM","Lufthansa"]) return f.code, f.plane
 
 8.
+match (f:Flight)<-[t:TRAVELS]-(a:Airport{city:”Rome”})-[b:BASED]->(c:Company)  return c.name, count(*)
 
